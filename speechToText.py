@@ -19,7 +19,7 @@ def record_text():
                 userAudio = r.listen(mic)
 
                 # Bruker google til å gjennkjenne audio
-                requestText = r.recognize_google(userAudio)
+                requestText = r.recognize_google(userAudio, language="NO-nb") # definere norsk språk
 
                 return requestText
         
@@ -28,9 +28,9 @@ def record_text():
         except sr.RequestError as e:
             print("Kunne ikke requeste resutatet; {0}".format(e))
         
-        # Skjønner ikke hva brukeren sa, forstår hittil bare Engelsk
+        # Skjønner ikke hva brukeren sa
         except sr.UnknownValueError:
-            print("I did not understand, make sure to speak clearly. :)")
+            print("Skjønner ikke hva du sier, snakk tydeligere. :)")
 
     return
 
