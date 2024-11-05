@@ -1,11 +1,13 @@
 # importing speechToText
 from speechToText import *
-
+import keyboard
 # importer Yake, keyword extractor
 import yake 
 
 # caller speechToText, Må adde en type break så den ikke kjører uendelig.
-speechToText()
+while keyboard.add_hotkey('space')
+    speechToText()
+
 
 # ---------------henter ut keywords---------------
 
