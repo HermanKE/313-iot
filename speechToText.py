@@ -22,7 +22,7 @@ def speechToText():
                     userAudio = r.listen(mic)
 
                     # Bruker google til å gjennkjenne audio
-                    requestText = r.recognize_google(userAudio, language="NO-nb") # definere norsk språk
+                    requestText = r.recognize_google(userAudio, language="EN-gb") # definere norsk språk
 
                     return requestText
 
@@ -33,7 +33,7 @@ def speechToText():
 
             # Skjønner ikke hva brukeren sa
             except sr.UnknownValueError:
-                print("Skjønner ikke hva du sier, snakk tydeligere. :)")
+                print("Cannot understand you, speak clearly. :)")
 
         return
 
