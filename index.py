@@ -4,24 +4,27 @@ from speechToText import *
 # importer Yake, keyword extractor
 import yake 
 
-# caller speechToText
+# caller speechToText, Må adde en type break så den ikke kjører uendelig.
 speechToText()
 
 # ---------------henter ut keywords---------------
 
 f = open('input.txt', 'r')
 
-yrnøkkelord = ['weather', 'forecast']
+yrNøkkelord = ['weather', 'forecast']
+spotifyNøkkelord = ['spotify', 'play', 'artist', 'music']
+
 kw_extractor = yake.KeywordExtractor()
 keywords = kw_extractor.extract_keywords(f.read())
 
-""" for keywords in nøkkelord:
-    print(keywords)
-    #calle spotify """
-while (1):
-    if keywords in yrnøkkelord:
+for keyword, score in keywords:
+    if keyword in yrNøkkelord:
+        print("Hello world")
+        break
+    elif keyword in spotifyNøkkelord:
         print('yo')
-        #calle yr
+        # Call the relevant function or execute the relevant code here
+        break  
     
     
 
