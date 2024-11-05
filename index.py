@@ -3,9 +3,9 @@ import yake
 
 f = open('input.txt', 'r')
 
-nøkkelord = ['været', 'spotify']
+nøkkelord = ['weather', 'spotify']
 kw_extractor = yake.KeywordExtractor()
 keywords = kw_extractor.extract_keywords(f.read())
 
-for kw in keywords:
-    print(kw)
+for keywords in nøkkelord:
+    print(keywords)
