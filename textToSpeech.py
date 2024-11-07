@@ -1,4 +1,5 @@
 import pyttsx3
+import asyncio
 
 def textToSpeech():
     with open('output.txt', 'r') as o:  # Using 'with' to handle file closing automatically

@@ -124,5 +124,4 @@ for keyword, score in keywords:
         CurrentTime()
         break
 
-
-textToSpeech()
+asyncio.run(textToSpeech())
