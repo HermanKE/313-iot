@@ -8,6 +8,8 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import random
 import time
+import python_weather
+import asyncio
 
 
 
@@ -41,8 +43,19 @@ keywords = kw_extractor.extract_keywords(i.read())
 # --------------------operere basert på keywords--------------------
 
     # -----------------Værmelding fra YR-----------------
-def weatherForecast():
-    return
+async def weatherForecast() -> None:
+    # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
+    async with python_weather.Client() as client:
+        # fetch a weather forecast from a city
+        weather = await client.get('Kristiansand')
+    
+        # returns the current day's forecast temperature (int)
+        print("The current temperature is: ", weather.temperature)
+    
+        # get the weather forecast for a few days
+        print("The weather forecast the coming days:")
+        for daily in weather:
+            print(daily)
 
     # -------------------Spotify-------------------
 def playMusic():
@@ -85,6 +98,7 @@ for keyword, score in keywords:
     
     elif keyword in yrNøkkelord:
         print("Hello world")
+        asyncio.run(weatherForecast())
         break
 
     elif keyword in locationNøkkelord:
