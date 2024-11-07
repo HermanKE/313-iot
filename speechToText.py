@@ -1,50 +1,43 @@
 # Importerer libraries/pakker
 import speech_recognition as sr
 import pyttsx3
+import keyboard
+import threading
 
 #funksjon som kan calles fra Index.py
 def speechToText():
-
-    # Initialisere recognizer
     r = sr.Recognizer()
+    # Used to signal the thread to stop
+    stop_flag = threading.Event()  
 
-    # Funksjon som tar opp lyd fra bruker
+    # Function to record text from microphone
     def record_text():
-        # Loop i tilfelle det blir errors
-        while(1):
+        # Keep listening until the stop flag is set
+        while not stop_flag.is_set():  
             try:
-                # Bruker mikrofonen som kilde for input
                 with sr.Microphone() as mic:
-                    # Forbreder recognizer til å motta input
                     r.adjust_for_ambient_noise(mic, duration=0.2)
-
-                    # Hører etter brukers input
                     userAudio = r.listen(mic)
+                    requestText = r.recognize_google(userAudio, language="EN-gb")
+                    
+                    input_text(requestText)
 
-                    # Bruker google til å gjennkjenne audio
-                    requestText = r.recognize_google(userAudio, language="EN-gb") # definere norsk språk
+                    print("Wrote text")
 
-                    return requestText
-
-            # Feilmeldinger:
-            # Feil oppstod under request til Google
             except sr.RequestError as e:
-                print("Kunne ikke requeste resutatet; {0}".format(e))
+                print("Could not request result; {0}".format(e))
 
-            # Skjønner ikke hva brukeren sa
             except sr.UnknownValueError:
                 print("Cannot understand you, speak clearly. :)")
 
-        return
-
-    # Funksjon som tømmer input.txt
+    # Function to clear input.txt
     def clear_text():
         f = open("input.txt", "w") 
         f.close()
 
         return  
     
-    # Funksjon som lager input.txt og skriver i den
+    # Function that makes and empties the input.txt file
     def input_text(text):
         f = open("input.txt", "a") # Lager en input-fil
         f.write(text) # Skriver tekst
@@ -53,14 +46,20 @@ def speechToText():
 
         return
 
-    # Kjører funksjonen som tømmer input.txt
-    clear_text() 
+    # Clear input.txt at the start
+    clear_text()
 
-    # Loop som recorder og skriver tekst i input.txt
-    # While(1) skal endres til buttonPress
-    while(1):
-        text = record_text()
-        input_text(text)
+    # Start the recording thread
+    recording_thread = threading.Thread(target=record_text)
+    recording_thread.start()
 
-        print("Wrote text")
-
+    # Main loop to detect keystroke
+    while True:
+        # Stop when "q" is pressed
+        if keyboard.is_pressed("q"):  
+            print("Exiting...")
+            # Signal the recording thread to stop
+            stop_flag.set()  
+            # Wait for the recording thread to finish
+            recording_thread.join()  
+            break

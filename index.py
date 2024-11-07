@@ -15,7 +15,7 @@ import asyncio
 
 
 # caller speechToText, Må adde en type break så den ikke kjører uendelig.
-#speechToText()
+
 #Denne har ingen exit funksjonalitet, så vil bare loope for alltid, må se om det er mulig og gi den exit og av og på knapp
 
 
@@ -32,6 +32,7 @@ yrNøkkelord = ['weather', 'forecast']
 clockNøkkelord = ['time', 'clock', 'date']
 locationNøkkelord = []
 musikkNøkkelord = ['play', 'artist', 'music']
+Stop = ['stop', 'Stop']
 
 
 
@@ -42,7 +43,11 @@ kw_extractor = yake.KeywordExtractor()
 keywords = kw_extractor.extract_keywords(i.read())
 # --------------------operere basert på keywords--------------------
 
-    # -----------------Værmelding fra YR-----------------
+speechToText()
+
+
+
+# -----------------Weather Forecast-----------------
 async def weatherForecast() -> None:
     # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
     async with python_weather.Client() as client:
@@ -57,7 +62,7 @@ async def weatherForecast() -> None:
         for daily in weather:
             print(daily)
 
-    # -------------------Spotify-------------------
+    # -------------------Play music-------------------
 def playMusic():
     pygame.init()  # Initialize pygame
     pygame.mixer.init()
