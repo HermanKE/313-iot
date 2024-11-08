@@ -68,7 +68,7 @@ async def weatherForecast() -> None:
             o.write(str(daily.date) + '\n')  # Convert datetime.date to string and add newline
             o.write('The weather will be ' + str(weather.kind) + '\n')
             o.write('The temperature will be ' + str(daily.temperature) + ' Celsius\n')
-            o.write('The wind speeds will be ' + str(weather.wind_speed) + ' kilometers per hour\n')
+            o.write('The wind speeds will be ' + str(round(weather.wind_speed * (1000/3600), 1)) + ' meters per second\n')
             o.write('Sunrise will be at: ' + str(daily.sunrise) + '\n')
             o.write('Sunset will be at: ' + str(daily.sunset) + '\n')
             o.write('\n')
@@ -91,6 +91,9 @@ def playMusic():
         
         # Keep the program running until the music stops
         while pygame.mixer.music.get_busy():
+            if keyboard.is_pressed("q"):  
+                print("Exiting...")
+                os.kill()
             time.sleep(1)
     except pygame.error as e:
         print("Error loading or playing the music:", e)
@@ -98,8 +101,9 @@ def playMusic():
 
     # -------------------Klokka-------------------
 def CurrentTime():
-    currentTime = str(datetime.datetime.now())
-    o.write("The current time is " + currentTime)
+    currentTime = datetime.datetime.now()
+    roundedTime = str(currentTime.replace(second=0, microsecond=0))
+    o.write("The current time is " + roundedTime)
     o.close()
     return
 
