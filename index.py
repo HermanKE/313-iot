@@ -11,6 +11,7 @@ import random
 import time
 import python_weather
 import asyncio
+import googlemaps
 
 
 i = open('input.txt', 'r')
@@ -134,7 +135,6 @@ for keyword, score in keywords:
         break
 
     elif keyword in locationNøkkelord:
-        print("Hello world")
         check_traffic()
        
 
