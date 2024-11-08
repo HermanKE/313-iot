@@ -5,8 +5,11 @@ import yake
 import datetime
 import pygame
 import random
+import googlemaps
 
 
+# API key til google maps
+gmaps = googlemaps.Client(key='AIzaSyCc8wAa6p-IMlpXjxXvcRJS0cI9VCJrsfQ')
 
 
 # caller speechToText, Må adde en type break så den ikke kjører uendelig.
@@ -24,7 +27,7 @@ music_files = ['ex1.mp3', 'ex2.mp3', 'ex3.mp3']
 
 yrNøkkelord = ['weather', 'forecast']
 clockNøkkelord = ['time', 'clock', 'date']
-locationNøkkelord = []
+locationNøkkelord = ['traffic'], ['city'], ['drive']
 musikkNøkkelord = ['play', 'artist', 'music']
 
 pygame.mixer.init()
@@ -49,6 +52,19 @@ def CurrentTime():
     o.close()
     return
 
+    # -------------------Sjekke trafikk-------------------
+def check_traffic():
+    origin = "Gyldenløves gate 9, 4611 Kristiansand"
+    destination = "Campus Kristiansand, Universitetsveien 25, 4630 Kristiansand"
+    now = datetime.datetime.now()#default sted og tid
+    # forespørsel om trafikk data fra Google Maps
+    directions = gmaps.directions(origin, destination, mode="driving", departure_time=now, traffic_model="best_guess") #2 oblig parametre, defualt driving mode for directions, avgang nå for live oppdateringer, best_guess som nøytral defualt 
+    estimation = directions[0]['legs'][0]['duration_in_traffic']['text'] #kun 1 rute, 1 lengde(leg), duration gir tidsestimering for leggen, text gjør duration om til string fremfor abs verdi
+    print(f"Travel time with traffic: {estimation}")
+    return estimation
+
+
+
 # Printe resultat i output.txt# Importer dvs. API for funksjonalitet
 
 for keyword, score in keywords:
@@ -63,9 +79,11 @@ for keyword, score in keywords:
         break
 
     elif keyword in locationNøkkelord:
-        # Veibilde / direcions
-        break
+        print("Hello world")
+        check_traffic()
+       
 
     elif keyword in clockNøkkelord:
         CurrentTime()
         break
+
