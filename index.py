@@ -120,7 +120,7 @@ def check_traffic():
     
     if directions:
         estimation = directions[0]['legs'][0]['duration_in_traffic']['text'] #kun 1 rute, 1 lengde(leg), duration gir tidsestimering for leggen, text gjør duration om til string fremfor abs verdi
-        print(f"Travel time with traffic: {estimation}")
+        print(f"Travel time for your distenation is: {estimation}")
         return estimation
     else:
         print("No traffic data available.")
