@@ -112,15 +112,16 @@ def CurrentTime():
 
     # -------------------Sjekke trafikk-------------------
 def check_traffic():
-    origin = "Gyldenløves gate 9, 4611 Kristiansand"
-    destination = "Campus Kristiansand, Universitetsveien 25, 4630 Kristiansand"
+    origin = "Campus Kristiansand, Universitetsveien 25, 4630 Kristiansand"
+    destination = "Universitetet i Agder Campus Grimstad, Jon Lilletuns vei 9, 4879 Grimstad"
     now = datetime.datetime.now()#default sted og tid
     # forespørsel om trafikk data fra Google Maps
     directions = gmaps.directions(origin, destination, mode="driving", departure_time=now, traffic_model="best_guess") #2 oblig parametre, defualt driving mode for directions, avgang nå for live oppdateringer, best_guess som nøytral defualt 
     
     if directions:
         estimation = directions[0]['legs'][0]['duration_in_traffic']['text'] #kun 1 rute, 1 lengde(leg), duration gir tidsestimering for leggen, text gjør duration om til string fremfor abs verdi
-        print(f"Travel time for your distenation is: {estimation}")
+        #print(f"Travel time for your distenation is: {estimation}")
+        o.write(f"Travel time for your distenation is: {estimation}")
         return estimation
     else:
         print("No traffic data available.")
@@ -132,9 +133,7 @@ def check_traffic():
 for keyword, score in keywords:
     if keyword in musikkNøkkelord:
         print('Get jiggy')
-        # Then check for genre-specific words
         playMusic()
-
     
     elif keyword in yrNøkkelord:
         asyncio.run(weatherForecast())
@@ -143,12 +142,12 @@ for keyword, score in keywords:
     elif keyword in locationNøkkelord:
         check_traffic()
        
-
     elif keyword in clockNøkkelord:
         CurrentTime()
         break
 
+# Lukk output-filen før text-to-speech
+o.close()
+
+# Kjør text-to-speech til slutt
 asyncio.run(textToSpeech())
-
-
-check_traffic()
