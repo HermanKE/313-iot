@@ -13,6 +13,8 @@ import python_weather
 import asyncio
 import googlemaps
 
+gmaps = googlemaps.Client(key='AIzaSyCc8wAa6p-IMlpXjxXvcRJS0cI9VCJrsfQ')
+
 
 i = open('input.txt', 'r')
 o = open('output.txt', 'w')
@@ -34,7 +36,7 @@ music_files = ['Rick Astley - Never Gonna Give You Up.mp3', 'Backstreet Boys - I
 
 yrNøkkelord = ['weather', 'forecast']
 clockNøkkelord = ['time', 'clock', 'date']
-locationNøkkelord = ['traffic'], ['city'], ['drive']
+locationNøkkelord = ['traffic', 'city', 'drive']
 musikkNøkkelord = ['play', 'artist', 'music']
 Stop = ['stop', 'Stop']
 
@@ -115,10 +117,14 @@ def check_traffic():
     now = datetime.datetime.now()#default sted og tid
     # forespørsel om trafikk data fra Google Maps
     directions = gmaps.directions(origin, destination, mode="driving", departure_time=now, traffic_model="best_guess") #2 oblig parametre, defualt driving mode for directions, avgang nå for live oppdateringer, best_guess som nøytral defualt 
-    estimation = directions[0]['legs'][0]['duration_in_traffic']['text'] #kun 1 rute, 1 lengde(leg), duration gir tidsestimering for leggen, text gjør duration om til string fremfor abs verdi
-    print(f"Travel time with traffic: {estimation}")
-    return estimation
-
+    
+    if directions:
+        estimation = directions[0]['legs'][0]['duration_in_traffic']['text'] #kun 1 rute, 1 lengde(leg), duration gir tidsestimering for leggen, text gjør duration om til string fremfor abs verdi
+        print(f"Travel time with traffic: {estimation}")
+        return estimation
+    else:
+        print("No traffic data available.")
+        return "No data available."
 
 
 # Printe resultat i output.txt# Importer dvs. API for funksjonalitet
@@ -143,3 +149,6 @@ for keyword, score in keywords:
         break
 
 asyncio.run(textToSpeech())
+
+
+check_traffic()
