@@ -69,11 +69,11 @@ async def weatherForecast() -> None:
             print('') """
 
             o.write(str(daily.date) + '\n')  # Convert datetime.date to string and add newline
-            o.write('The weather will be ' + str(weather.kind) + '\n')
-            o.write('The temperature will be ' + str(daily.temperature) + ' Celsius\n')
-            o.write('The wind speeds will be ' + str(round(weather.wind_speed * (1000/3600), 1)) + ' meters per second\n')
-            o.write('Sunrise will be at: ' + str(daily.sunrise) + '\n')
-            o.write('Sunset will be at: ' + str(daily.sunset) + '\n')
+            o.write(f'The weather will be ' + str(weather.kind) + '\n')
+            o.write(f'The temperature will be ' + str(daily.temperature) + ' Celsius\n')
+            o.write(f'The wind speeds will be ' + str(round(weather.wind_speed * (1000/3600), 1)) + ' meters per second\n')
+            o.write(f'Sunrise will be at: ' + str(daily.sunrise) + '\n')
+            o.write(f'Sunset will be at: ' + str(daily.sunset) + '\n')
             o.write('\n')
 
     # -------------------Play music-------------------
@@ -106,7 +106,7 @@ def playMusic():
 def CurrentTime():
     currentTime = datetime.datetime.now()
     roundedTime = str(currentTime.replace(second=0, microsecond=0))
-    o.write("The current time is " + roundedTime)
+    o.write(f"The current time is " + roundedTime)
     o.close()
     return
 
@@ -124,7 +124,7 @@ def check_traffic():
         o.write(f"Travel time for your distenation is: {estimation}")
         return estimation
     else:
-        print("No traffic data available.")
+        print(f"No traffic data available.")
         return "No data available."
 
 

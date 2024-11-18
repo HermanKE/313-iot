@@ -15,8 +15,8 @@ def speechToText():
         # Keep listening until the stop flag is set
         while not stop_flag.is_set():  
             try:
-                with sr.Microphone() as mic:
-                    r.adjust_for_ambient_noise(mic, duration=0.2)
+                with sr.Microphone(device_index=2) as mic:
+                   # r.adjust_for_ambient_noise(mic, duration=0.2)
                     userAudio = r.listen(mic)
                     requestText = r.recognize_google(userAudio, language="EN-gb")
                     
