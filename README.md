@@ -1,6 +1,9 @@
 # 313-iot
 IoT prosjekt i IS-313, 5. semester
 
+Formålet med dette prosjektet er å lage en AI-assistent som fungerer i samarbeid med en Rasberry PI 4. Denne assistenten bruker tale-til-tekst og talgjenkjenningsteknologier, for å kunne kommunisere med brukeren på en brukervennlig måte. Hovedkomponentene i denne assistenten er Rasberry PI, en mikrofon, en høyttaler, et display, og et program som inneholder nødvendig kode. Målet med assistenten er å gjennomføre hverdagslige oppgaver som en bruker ofte er borti. Hovedfunksjonene som vi ønsket å integrere i assistenten først og fremst er sjekk og tilbakemelding av tid, været, og trafikk i sanntid, samt mulighet for å spille musikk ved forespørsel. 
+
+
 ## speechToText.py
 Skal plukke opp lyd, etter knappetrykk, og skrives inn i tekstfil
 
