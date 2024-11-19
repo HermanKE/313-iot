@@ -36,8 +36,8 @@ En for-løkke som sjekker om bestemte nøkkelord er fanget opp og skrevet i inpu
 ## textToSpeech.py
 Skal gjøre svartekst fra index om til lyd og et svar.
 Program som inneholder funksjonen som gjør at innholdet i output.txt blir gjort om til audio.
-	### textToSpeech()
-	Åpner output.txt og leser ut alt innhold.
+### textToSpeech()
+Åpner output.txt og leser ut alt innhold.
 
 
 
